@@ -1,13 +1,21 @@
 <script setup lang="ts">
-const { data, getFilms } = useSwapi();
-const route = useRoute();
+import { FilmResponse } from '~~/types/film';
 
-async function loadData(x: number = 1) {
-  await getFilms(x);
+const { getFilms } = useSwapi();
+
+const films = ref({} as FilmResponse);
+const loaded = ref(false);
+
+async function loadData(x = 1) {
+  const { data } = await getFilms(x);
+  films.value = data;
+  loaded.value = true;
 }
+
 definePageMeta({
   name: 'Films'
 });
+
 onBeforeMount(() => {
   loadData();
 });
@@ -15,18 +23,15 @@ onBeforeMount(() => {
 
 <template>
   <LayoutsDefault
-    v-if="data"
-    :count="data.count"
-    :name="route.name"
-    @getData="loadData($event)"
+    v-if="loaded"
+    :count="films.count"
+    @get-data="loadData($event)"
   >
     <div>
       <div>Planets</div>
-      <!-- <button @click="navigate({ name: Routes.People })">Navigate</button> -->
-
       <div>
         <ul>
-          <li v-for="film in data?.results" :key="film.title">
+          <li v-for="film in films?.results" :key="film.title">
             {{ film.title }}
           </li>
         </ul>
@@ -34,5 +39,3 @@ onBeforeMount(() => {
     </div>
   </LayoutsDefault>
 </template>
-
-<style lang="scss" scoped></style>

@@ -19,6 +19,10 @@ module.exports = {
     '@vue/eslint-config-typescript',
     'prettier'
   ],
+  rules: {
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+  },
   globals: {
     $nuxt: true
   },
