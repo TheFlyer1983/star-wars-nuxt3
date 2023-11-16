@@ -1,32 +1,29 @@
-import { PersonResponse } from '~~/types/people';
-import request from '~~/helpers/axios';
+import type { PersonResponse } from '~~/types/people';
 import { apiConfig } from '~~/constants/apiConfig';
-import { PlanetResponse } from '~~/types/planet';
-import { FilmResponse } from '~~/types/film';
+import type { PlanetResponse } from '~~/types/planet';
+import type { FilmResponse } from '~~/types/film';
 
 function useSwapi() {
   async function getPeople(pageNumber = 1) {
-    const response = await request.get<PersonResponse>(apiConfig.people, {
-      params: { page: pageNumber.toString() }
-    });
+    const { data: people } = await useFetch<PersonResponse>(apiConfig.people, { params: { page: pageNumber.toString()}})
 
-    return { data: response.data };
+    return { people };
   }
 
   async function getPlanets(pageNumber = 1) {
-    const response = await request.get<PlanetResponse>(apiConfig.planets, {
+    const { data } = await useFetch<PlanetResponse>(apiConfig.planets, {
       params: { page: pageNumber.toString() }
     });
 
-    return { data: response.data };
+    return { data };
   }
 
   async function getFilms(pageNumber = 1) {
-    const response = await request.get<FilmResponse>(apiConfig.films, {
+    const { data: films} = await useFetch<FilmResponse>(apiConfig.films, {
       params: { page: pageNumber.toString() }
     });
 
-    return { data: response.data };
+    return { films };
   }
 
   return { getPeople, getPlanets, getFilms };

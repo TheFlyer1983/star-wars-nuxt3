@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { FilmResponse } from '~~/types/film';
+import type { Film } from '~~/types/film';
 
 const { getFilms } = useSwapi();
 
-const films = ref({} as FilmResponse);
+const films = ref<Film[]>();
+const count = ref<number>();
 const loaded = ref(false);
+const page = ref(1);
 
 async function loadData(x = 1) {
-  const { data } = await getFilms(x);
-  films.value = data;
+  const { films: data } = await getFilms(x);
+  films.value = data.value?.results;
+  count.value = data.value?.count;
   loaded.value = true;
 }
 
@@ -16,26 +19,33 @@ definePageMeta({
   name: 'Films'
 });
 
-onBeforeMount(() => {
-  loadData();
+onBeforeMount(async () => {
+  await loadData();
+});
+
+watch(page, async () => {
+  await loadData(page.value);
 });
 </script>
 
 <template>
-  <LayoutsDefault
-    v-if="loaded"
-    :count="films.count"
-    @get-data="loadData($event)"
-  >
+  <div v-if="loaded">
     <div>
-      <div>Planets</div>
-      <div>
-        <ul>
-          <li v-for="film in films?.results" :key="film.title">
-            {{ film.title }}
-          </li>
-        </ul>
+      <span class="flex justify-center text-xl">
+        There are {{ count }} films in the Star Wars series
+      </span>
+      <div class="my-6 grid grid-cols-3 gap-6">
+        <UCard
+          v-for="film in films"
+          :key="film.title"
+          class="flex cursor-pointer justify-center"
+        >
+          {{ film.title }}
+        </UCard>
       </div>
     </div>
-  </LayoutsDefault>
+    <div class="flex justify-evenly">
+      <UPagination v-model="page" :total="count!" :max="count! + 2" size="lg" />
+    </div>
+  </div>
 </template>

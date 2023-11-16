@@ -1,4 +1,4 @@
-const baseURL = 'https://swapi.dev/api/';
+const baseURL = 'https://swapi.dev/api';
 
 export const apiConfig = {
   planets: `${baseURL}/planets`,

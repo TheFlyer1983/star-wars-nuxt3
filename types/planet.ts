@@ -1,4 +1,4 @@
-import { Response } from './index';
+import type { Response } from './index';
 
 export interface Planet {
   name: string;
