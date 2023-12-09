@@ -18,14 +18,19 @@ const isDark = computed({
       aria-label="Theme"
       @click="isDark = !isDark"
     />
+    <div class="flex justify-center text-center text-7xl text-yellow-300">
+      <h1>star wars</h1>
+    </div>
     <div class="flex justify-evenly pt-2.5">
       <UButton
         v-for="route in router.options.routes"
         :key="route.name"
         @click="navigateTo({ name: route.name })"
-        >{{ route.name }}</UButton
       >
+        {{ route.name }}
+      </UButton>
     </div>
+
     <main class="p-5">
       <slot />
     </main>

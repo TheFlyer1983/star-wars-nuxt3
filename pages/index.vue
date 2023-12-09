@@ -38,7 +38,7 @@ watch(page, async () => {
       <span class="flex justify-center text-xl">
         There are {{ count }} people in Star Wars
       </span>
-      <div class="my-6 grid grid-cols-5 gap-6">
+      <div class="my-6 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
         <UCard
           v-for="person in people"
           :key="person.name"
