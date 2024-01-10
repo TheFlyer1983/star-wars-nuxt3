@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const router = useRouter();
+import { rootNavigation } from '~/constants/navigation';
 const colorMode = useColorMode();
 
 const isDark = computed({
@@ -23,11 +23,11 @@ const isDark = computed({
     </div>
     <div class="flex justify-evenly pt-2.5">
       <UButton
-        v-for="route in router.options.routes"
+        v-for="route in rootNavigation"
         :key="route.name"
         @click="navigateTo({ name: route.name })"
       >
-        {{ route.name }}
+        {{ route.text }}
       </UButton>
     </div>
 

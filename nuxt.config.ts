@@ -4,6 +4,7 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxt/devtools',
+    '@pinia/nuxt',
     '@nuxt/ui',
     [
       'nuxt-typed-router',
@@ -12,6 +13,10 @@ export default defineNuxtConfig({
       }
     ]
   ],
+
+  imports: {
+    dirs: ['store']
+  },
 
   css: ['~/assets/css/main.css'],
 

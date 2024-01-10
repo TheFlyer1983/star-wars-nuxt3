@@ -15,10 +15,6 @@ async function loadData(x = 1) {
   loaded.value = true;
 }
 
-definePageMeta({
-  name: 'Films'
-});
-
 onBeforeMount(async () => {
   await loadData();
 });

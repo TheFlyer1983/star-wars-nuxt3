@@ -5,7 +5,9 @@ import type { FilmResponse } from '~~/types/film';
 
 function useSwapi() {
   async function getPeople(pageNumber = 1) {
-    const { data: people } = await useFetch<PersonResponse>(apiConfig.people, { params: { page: pageNumber.toString()}})
+    const { data: people } = await useFetch<PersonResponse>(apiConfig.people, {
+      params: { page: pageNumber.toString() }
+    });
 
     return { people };
   }
@@ -19,7 +21,7 @@ function useSwapi() {
   }
 
   async function getFilms(pageNumber = 1) {
-    const { data: films} = await useFetch<FilmResponse>(apiConfig.films, {
+    const { data: films } = await useFetch<FilmResponse>(apiConfig.films, {
       params: { page: pageNumber.toString() }
     });
 
