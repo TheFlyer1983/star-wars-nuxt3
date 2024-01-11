@@ -1,9 +1,13 @@
+import { z } from 'zod';
 import type { Response } from './index';
 
-export interface Person {
-  name: string;
-  height: string;
-}
+const PersonSchema = z.object({
+  name: z.string(),
+  height: z.string()
+});
+
+export type Person = z.infer<typeof PersonSchema>;
+
 export type PersonResponse = Response & {
   results: Array<Person>;
-}
+};

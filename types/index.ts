@@ -1,5 +1,9 @@
-export type Response = {
-  count: number;
-  next: string | null;
-  previous: string | null;
-}
+import { z } from 'zod';
+
+const ResponseSchema = z.object({
+  count: z.number(),
+  next: z.string().nullable(),
+  previous: z.string().nullable()
+});
+
+export type Response = z.infer<typeof ResponseSchema>;

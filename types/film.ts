@@ -1,10 +1,11 @@
+import { z } from 'zod';
 import type { Response } from './index';
 
-export interface Film {
-  title: string;
-}
+const FilmSchema = z.object({
+  title: z.string()
+});
+export type Film = z.infer<typeof FilmSchema>;
 
-export interface FilmResponse extends Response {
-  count: number;
+export type FilmResponse = Response & {
   results: Array<Film>;
-}
+};
